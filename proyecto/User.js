@@ -4,7 +4,7 @@ import MenuDrawer from 'react-native-side-drawer'
 import CalendarPicker from 'react-native-calendar-picker';
 import {Picker} from '@react-native-community/picker';
 import {createStackNavigator} from '@react-navigation/stack';
-import { useState } from 'react'
+import { useState } from 'react';
 global.cadena;
 global.codigo;
 global.nombre;
@@ -41,12 +41,13 @@ export default class User extends React.Component {
     this.setState({ open: !this.state.open });
   };
 
-  drawerContent = () => {
+  drawerContent = (navigation) => {
     
     return (
      
       <TouchableOpacity onPress={this.toggleOpen} style={styles.animatedBox}>
        <Text>{global.cadena}</Text>
+       <Button title="ir a bajas" onPress={()=>navigation.navigate('formatoB') }> </Button>
         <Text>Close</Text>
       </TouchableOpacity>
     );
@@ -99,7 +100,7 @@ export default class User extends React.Component {
         
         <MenuDrawer 
           open={this.state.open} 
-          drawerContent={this.drawerContent()}
+          drawerContent={this.drawerContent(navigation)}
           drawerPercentage={45}
           animationTime={250}
           overlay={true}
@@ -107,9 +108,9 @@ export default class User extends React.Component {
           
           
         >
-          
-          <Button title="Open" onPress={this.toggleOpen} style={styles.body}/>
-       
+          <View style={styles.body}>
+          <Button title="Open" onPress={this.toggleOpen} color="# 808080"/>
+          </View>
           
         </MenuDrawer>
 
