@@ -17,7 +17,7 @@
     "@react-navigation/stack": "^5.9.2",
     "moment": "^2.29.1",
     "react": "16.13.1",
-    "react-native": "0.63.3",
+    "react-native": "^0.63.3",
     "react-native-calendar-picker": "^7.0.1",
     "react-native-elements": "^2.3.2",
     "react-native-gesture-handler": "^1.8.0",
@@ -28,7 +28,8 @@
     "react-native-side-drawer": "^1.2.8",
     "react-native-vector-icons": "^7.1.0",
     "react-navigation": "^4.4.1",
-    "react-navigation-stack": "^2.8.3"
+    "react-navigation-stack": "^2.8.3",
+    "upgrade": "^1.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",

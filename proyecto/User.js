@@ -3,21 +3,21 @@ import { View, Text, StyleSheet, TouchableOpacity, Button,StackScreen,YellowBox,
 import MenuDrawer from 'react-native-side-drawer'
 import CalendarPicker from 'react-native-calendar-picker';
 import {Picker} from '@react-native-community/picker';
+import {commonActions,useNavigation} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack';
-import { useState } from 'react';
+
 global.cadena;
 global.codigo;
 global.nombre;
 global.carrera;
 
-//poner calendario botones para elejír hora de 8 a 1
-//separar el date en diferentes campos como en la imagen
-//mostrar los datos en conosla
+
 
 
 //enviar datos de react al servidor
 
 export default class User extends React.Component {
+  
     state={
       Hora:'',
     }
@@ -29,7 +29,7 @@ export default class User extends React.Component {
       open: false
     };
     this.onDateChange = this.onDateChange.bind(this);
-    
+    const {navigation}= props;
   }
   onDateChange(date) {
     this.setState({
@@ -42,12 +42,14 @@ export default class User extends React.Component {
   };
 
   drawerContent = (navigation) => {
-    
+    let _this=this;
     return (
      
       <TouchableOpacity onPress={this.toggleOpen} style={styles.animatedBox}>
        <Text>{global.cadena}</Text>
-       <Button title="ir a bajas" onPress={()=>navigation.navigate('formatoB') }> </Button>
+       <TouchableOpacity onPress={()=>_this.props.navigation.navigate('Formato')} >
+          <Text>Bajas</Text>
+      </TouchableOpacity>
         <Text>Close</Text>
       </TouchableOpacity>
     );
@@ -98,66 +100,65 @@ export default class User extends React.Component {
     return (
       <View style={styles.container}>
         
-        <MenuDrawer 
-          open={this.state.open} 
-          drawerContent={this.drawerContent(navigation)}
-          drawerPercentage={45}
-          animationTime={250}
-          overlay={true}
-          opacity={0.4}
-          
-          
-        >
-          <View style={styles.body}>
-          <Button title="Open" onPress={this.toggleOpen} color="# 808080"/>
-          </View>
-          
-        </MenuDrawer>
+      <MenuDrawer 
+        open={this.state.open} 
+        drawerContent={this.drawerContent()}
+        drawerPercentage={45}
+        animationTime={250}
+        overlay={true}
+        opacity={0.4}
+        
+        
+      >
+        
+        <Button title="Open" onPress={this.toggleOpen} style={styles.body}/>
+     
+        
+      </MenuDrawer>
 
-        <View style={styles.container}>
-          <CalendarPicker
-            onDateChange={this.onDateChange}
-          />
-  
-          <View>
-            <Text>SELECCIONA LA FECHA</Text>
-          </View>
+      <View style={styles.container}>
+        <CalendarPicker
+          onDateChange={this.onDateChange}
+        />
 
-          <Picker
-          selectedValue={this.state.Hora}
-          style={{height: 50, width: 150}}
-          onValueChange={(itemValue, itemIndex) =>
-            this.setState({Hora: itemValue})
-          }>
-          <Picker.Item label="8:00" value="8:00" />
-          <Picker.Item label="8:15" value="8:15" />
-          <Picker.Item label="8:30" value="8:30" />
-          <Picker.Item label="8:45" value="8:45" />
-          <Picker.Item label="9:00" value="9:00" />
-          <Picker.Item label="9:15" value="9:15" />
-          <Picker.Item label="9:30" value="9:30" />
-          <Picker.Item label="9:45" value="9:45" />
-          <Picker.Item label="10:00" value="10:00" />
-          <Picker.Item label="10:15" value="10:15" />
-          <Picker.Item label="10:30" value="10:30" />
-          <Picker.Item label="10:45" value="10:45" />
-          <Picker.Item label="11:00" value="11:00" />
-          <Picker.Item label="11:15" value="11:15" />
-          <Picker.Item label="11:30" value="11:30" />
-          <Picker.Item label="11:45" value="11:45" />
-          <Picker.Item label="12:00" value="12:00" />
-          <Picker.Item label="12:15" value="12:15" />
-          <Picker.Item label="12:30" value="12:30" />
-          <Picker.Item label="12:45" value="12:45" />   
-      </Picker>  
-      </View>
-   
-          <View>
-              <Button title='Crear cita' onPress={hacerCita} ></Button>
-          </View>
-         
-    </View> 
-      
+        <View>
+          <Text>SELECCIONA LA FECHA</Text>
+        </View>
+
+        <Picker
+        selectedValue={this.state.Hora}
+        style={{height: 50, width: 150}}
+        onValueChange={(itemValue, itemIndex) =>
+          this.setState({Hora: itemValue})
+        }>
+        <Picker.Item label="8:00" value="8:00" />
+        <Picker.Item label="8:15" value="8:15" />
+        <Picker.Item label="8:30" value="8:30" />
+        <Picker.Item label="8:45" value="8:45" />
+        <Picker.Item label="9:00" value="9:00" />
+        <Picker.Item label="9:15" value="9:15" />
+        <Picker.Item label="9:30" value="9:30" />
+        <Picker.Item label="9:45" value="9:45" />
+        <Picker.Item label="10:00" value="10:00" />
+        <Picker.Item label="10:15" value="10:15" />
+        <Picker.Item label="10:30" value="10:30" />
+        <Picker.Item label="10:45" value="10:45" />
+        <Picker.Item label="11:00" value="11:00" />
+        <Picker.Item label="11:15" value="11:15" />
+        <Picker.Item label="11:30" value="11:30" />
+        <Picker.Item label="11:45" value="11:45" />
+        <Picker.Item label="12:00" value="12:00" />
+        <Picker.Item label="12:15" value="12:15" />
+        <Picker.Item label="12:30" value="12:30" />
+        <Picker.Item label="12:45" value="12:45" />   
+    </Picker>  
+    </View>
+ 
+        <View>
+            <Button title='Crear cita' onPress={hacerCita} ></Button>
+        </View>
+       
+  </View> 
     );
   }
 }
@@ -182,5 +183,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#E5E5E5'
+  },
+  calendario:{
+    marginTop: 200,
+  },
+  botoncita:{
+    marginTop: 300,
   }
 })
