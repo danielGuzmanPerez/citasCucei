@@ -5,7 +5,7 @@ export class celdabajas extends Component {
     constructor(props){
         super(props);
             this.state={
-                //datosCita:props.datosC,
+                datosCita:props.datosC,
                 hora: props.hora1,
                 dia: props.dia1,
                 mes: props.mes1,

@@ -8,7 +8,10 @@ import {
   StyleSheet,
   Button,
   Alert,
+  TouchableOpacity,
 } from 'react-native';
+import MenuDrawer from 'react-native-side-drawer';
+import {createStackNavigator} from '@react-navigation/stack';
 global.codigo;
 export default class Bajas2 extends Component {
   constructor(props) {
@@ -21,6 +24,7 @@ export default class Bajas2 extends Component {
       //Variable para  hacer refresh
       refreshing: true,
     };
+    const {navigation}= props;
   }
   //funcion que llena la lista con los datos, se declaro en una funcion para no  poner el codigo de conexion cada rato
   //asi solo se manda llmar a la funcion
@@ -34,7 +38,7 @@ export default class Bajas2 extends Component {
           refreshing: false,
         });
 
-        console.log(_this.state.citas);
+        //console.log(xhttp.responseText);
       }
     };
     xhttp.open(
@@ -43,6 +47,33 @@ export default class Bajas2 extends Component {
       true,
     );
     xhttp.send();
+  };
+  toggleOpen = () => {
+    this.setState({ open: !this.state.open });
+  };
+  drawerContent = (navigation) => {
+    let _this=this;
+    
+    return (
+     
+      <TouchableOpacity onPress={this.toggleOpen} style={styles.animatedBox}>
+       <Text>{global.cadena}</Text>
+       <TouchableOpacity onPress={()=>_this.props.navigation.navigate('User')} >
+          <Text>Usuario</Text>
+      </TouchableOpacity>
+        <Text>Close</Text>
+      </TouchableOpacity>
+    );
+  };
+  static navigationOptions = {
+    title: "Home",
+    headerStyle: {
+      backgroundColor: "#03A9F4"
+    },
+    headerTintColor: "#fff",
+    headerTitleStyle: {
+      fontWeight: "bold"
+    }
   };
   //funcion que manda llamar a borracitas.php el cual le pasamos como parametro id que es unico no olviden que deben cambiar la ruta
   // asu servidor..
@@ -93,6 +124,7 @@ export default class Bajas2 extends Component {
     this.TraeDatos();
   };
   render() {
+    const Stack = createStackNavigator();
     //accion que se ejecuta mietras carga los datos, pantalla fiusha con el texto de cargando datos
     if (this.state.refreshing) {
       return (
@@ -104,55 +136,68 @@ export default class Bajas2 extends Component {
         </View>
       );
     }
+    console.log(this.state.citas);
     return (
-      //Vista de la lista, se uso el componente Flatlist
-      <View>
-        <Text> Bajas2 </Text>
-        <View>
-          <FlatList
-            // de donde se obtienen los datos, de el arreglo citas
-            data={this.state.citas}
-            //invocacion del separator de registros en la lista
-            ItemSeparatorComponent={this.ListViewItemSeparator}
-            //no se, en la documentacion no la encontre, si la quito no veo cambios, la dejo..
-            enableEmptySections={true}
-            //Vista de los datos item es el arreglo y para acceder a los datos hay que hace item.Hora, item.Dia etc
-            renderItem={({item}) => (
-              <View>
-                
-                <Text
-                  //estilo del como se va a ver la hora
-                  style={styles.rowViewContainer}
-                  //Para funcionar requiere un id, este id no estaba contemplado originalmente en la base de datos, el cual
-                  // deberan de alterar, deberan crear un campo nuevo en la tabla llamado id de tipo numerico y que sea AI (asi viene en
-                  // la base de datos) AutoIncrementable, no sera necesario alterar los demas scripts la base de datos llena ese campo
-                  //sola
-                  //{item.Hora} es como accedemos a la hora  para mostarla
-                  onPress={() => alert(item.id)}>
-                  {item.Hora}
-                </Text>
-                <Text
-                  style={styles.rowViewContainer}
-                  onPress={() => alert(item.id)}>
-                  {item.Dia}
-                </Text>
-                <Button
-                  style={styles.rowViewContainer1}
-                  title="borra"
-                  //mandamos llamar a la funcion borra y le pasamos como parametro el id, que es unico en la tabla
-                  onPress={() => this.borra(item.id)} />
-              </View>
-            )}
-            refreshControl={
-              <RefreshControl
-                //esto es para cuando bajas la lista se actualiza, ya se hace en automatico alla arriba :P
-                refreshing={this.state.refreshing}
-                onRefresh={this.onRefresh.bind(this)}
+        <View style={styles.container}>
+          <MenuDrawer 
+            open={this.state.open} 
+            drawerContent={this.drawerContent()}
+            drawerPercentage={45}
+            animationTime={250}
+            overlay={true}
+            opacity={0.4} >
+          </MenuDrawer> 
+          <View style={styles.container}>
+            <View>
+              <Button title="Open" onPress={this.toggleOpen} style={styles.body}/>
+            </View>
+            <Text> Bajas2 </Text>
+            <View>
+              <FlatList
+                // de donde se obtienen los datos, de el arreglo citas
+                data={this.state.citas}
+                //invocacion del separator de registros en la lista
+                ItemSeparatorComponent={this.ListViewItemSeparator}
+                //no se, en la documentacion no la encontre, si la quito no veo cambios, la dejo..
+                enableEmptySections={true}
+                //Vista de los datos item es el arreglo y para acceder a los datos hay que hace item.Hora, item.Dia etc
+                renderItem={({item}) => (
+                  <View>
+                    
+                    <Text
+                      //estilo del como se va a ver la hora
+                      style={styles.rowViewContainer}
+                      //Para funcionar requiere un id, este id no estaba contemplado originalmente en la base de datos, el cual
+                      // deberan de alterar, deberan crear un campo nuevo en la tabla llamado id de tipo numerico y que sea AI (asi viene en
+                      // la base de datos) AutoIncrementable, no sera necesario alterar los demas scripts la base de datos llena ese campo
+                      //sola
+                      //{item.Hora} es como accedemos a la hora  para mostarla
+                      onPress={() => alert(item.id)}>
+                      {item.Hora}
+                    </Text>
+                    <Text
+                      style={styles.rowViewContainer}
+                      onPress={() => alert(item.id)}>
+                      {item.Dia}
+                    </Text>
+                    <Button
+                      style={styles.rowViewContainer1}
+                      title="borra"
+                      //mandamos llamar a la funcion borra y le pasamos como parametro el id, que es unico en la tabla
+                      onPress={() => this.borra(item.id)} />
+                  </View>
+                )}
+                refreshControl={
+                  <RefreshControl
+                    //esto es para cuando bajas la lista se actualiza, ya se hace en automatico alla arriba :P
+                    refreshing={this.state.refreshing}
+                    onRefresh={this.onRefresh.bind(this)}
+                  />
+                }
               />
-            }
-          />
+            </View>
+          </View>
         </View>
-      </View>
     );
   }
 }
@@ -167,6 +212,24 @@ const styles = StyleSheet.create({
   },
   rowViewContainer1: {
     marginLeft: 200,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    //justifyContent: "center",
+   
+    zIndex: 0
+  },
+  animatedBox: {
+    flex: 1,
+    backgroundColor: "#9BA6FC",
+    padding: 10
+  },
+  animatedBox: {
+    flex: 1,
+    backgroundColor: "#9BA6FC",
+    padding: 10
   },
 });
 /*

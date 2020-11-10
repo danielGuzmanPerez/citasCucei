@@ -5,6 +5,7 @@ import CalendarPicker from 'react-native-calendar-picker';
 import {Picker} from '@react-native-community/picker';
 import {commonActions,useNavigation} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack';
+import { color } from 'react-native-reanimated';
 
 global.cadena;
 global.codigo;
@@ -40,20 +41,23 @@ export default class User extends React.Component {
   toggleOpen = () => {
     this.setState({ open: !this.state.open });
   };
-
+ 
   drawerContent = (navigation) => {
     let _this=this;
+    
     return (
      
       <TouchableOpacity onPress={this.toggleOpen} style={styles.animatedBox}>
        <Text>{global.cadena}</Text>
        <TouchableOpacity onPress={()=>_this.props.navigation.navigate('Formato')} >
           <Text>Bajas</Text>
+          
       </TouchableOpacity>
         <Text>Close</Text>
       </TouchableOpacity>
     );
   };
+
   static navigationOptions = {
     title: "Home",
     headerStyle: {
@@ -73,16 +77,8 @@ export default class User extends React.Component {
     const Stack = createStackNavigator();
     
     const hacerCita = () =>{
-      if(datosSeparados||startDate){
-        console.log("Codigo: "+global.codigo);
-        console.log("Nombre: "+global.nombre);
-        
+      if(datosSeparados||startDate){        
         var datosSeparados = startDate.split(' ');
-        
-        console.log("Día: "+datosSeparados[0]);
-        console.log("Mes: "+datosSeparados[1]);
-        console.log("Día: "+datosSeparados[2]);
-        console.log("Hora"+this.state.Hora);
     }
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function(){
@@ -107,20 +103,20 @@ export default class User extends React.Component {
         animationTime={250}
         overlay={true}
         opacity={0.4}
-        
-        
       >
         
-        <Button title="Open" onPress={this.toggleOpen} style={styles.body}/>
-     
         
       </MenuDrawer>
 
       <View style={styles.container}>
+      <View>
+        <Button title="Open" onPress={this.toggleOpen} style={styles.body}/>
+        </View>
+        <View style={styles.calendario}>
         <CalendarPicker
           onDateChange={this.onDateChange}
         />
-
+        </View>
         <View>
           <Text>SELECCIONA LA FECHA</Text>
         </View>
@@ -152,11 +148,13 @@ export default class User extends React.Component {
         <Picker.Item label="12:30" value="12:30" />
         <Picker.Item label="12:45" value="12:45" />   
     </Picker>  
-    </View>
- 
-        <View>
+   
+        <View style={styles.botoncita}>
             <Button title='Crear cita' onPress={hacerCita} ></Button>
         </View>
+    </View>
+ 
+       
        
   </View> 
     );
@@ -169,8 +167,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center",
-    marginTop: 30,
+    //justifyContent: "center",
+   
     zIndex: 0
   },
   animatedBox: {
@@ -188,6 +186,13 @@ const styles = StyleSheet.create({
     marginTop: 200,
   },
   botoncita:{
-    marginTop: 300,
+    marginTop: 50,
+   
+  },
+  botonDrawer:{
+    
+  },
+  calendario:{
+    marginTop:100,
   }
 })

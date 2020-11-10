@@ -1,6 +1,7 @@
 import React, {Component,setState} from 'react';
 import {View, Text,StyleSheet,FlatList,StatusBar, Alert} from 'react-native';
 import Celda from './celdabajas';
+global.codigo;
 
 export default class Bajas extends Component {
   constructor(props) {
@@ -24,7 +25,7 @@ export default class Bajas extends Component {
           console.log(_this.state.citas);
         }
       };
-    xhttp.open("GET", "http://danielguzman27.000webhostapp.com/VerCitas.php?codigo=215511141", true);
+    xhttp.open("GET", "http://danielguzman27.000webhostapp.com/VerCitas.php?codigo="+global.codigo, true);
     xhttp.send();
 };
   render() {

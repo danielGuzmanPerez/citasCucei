@@ -26,8 +26,6 @@ export default function Login (props) {
      global.centro=datosSeparados[3];
      global.carrera= datosSeparados[4];
      global.cadena="Código: "+datosSeparados[1]+ "\n Nombre: " +datosSeparados[2]+"\nCentro: "+ datosSeparados[3]+"\nCarrera: "+datosSeparados[4];
-     
-        
      navigation.navigate('User');
 }
 };
@@ -38,12 +36,12 @@ export default function Login (props) {
     }
   
     return(
-      <View>
+      <View style={styles.vista}>
         <View>
           <Image source={require('../proyecto/Imagenes/Escudo_CUCEI.png')} style={styles.logo}/>
         </View>
 
-        <View>
+        <View style={styles.cod}>
           <TextInput 
           placeholder="Código" 
           keyboardType="number-pad"
@@ -57,7 +55,9 @@ export default function Login (props) {
           onChange={(e) => setFormData({...formData,pass: e.nativeEvent.text})}
           
           />
-          <Button title="Iniciar" onPress={iniciar}/>
+          <View style={styles.boton}>
+            <Button title="Iniciar" onPress={iniciar}/>
+          </View>
         </View>
       </View>
   );
@@ -82,6 +82,18 @@ const styles= StyleSheet.create({
     borderRadius:50,
     resizeMode:'contain'
     
-    
+  },
+  vista:{
+    marginTop:50,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  cod:{
+    marginTop:50,
+  },
+  boton:{
+    marginTop:30,
+   
   }
+
 })
