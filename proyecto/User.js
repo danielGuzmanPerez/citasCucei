@@ -5,7 +5,7 @@ import CalendarPicker from 'react-native-calendar-picker';
 import {Picker} from '@react-native-community/picker';
 import {commonActions,useNavigation} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack';
-import { color } from 'react-native-reanimated';
+
 
 global.cadena;
 global.codigo;

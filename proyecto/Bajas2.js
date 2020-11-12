@@ -12,7 +12,14 @@ import {
 } from 'react-native';
 import MenuDrawer from 'react-native-side-drawer';
 import {NavigationContext} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 global.respuesta;
+global.cadena;
+global.codigo;
+global.nombre;
+global.carrera;
+
+//https://danielguzman27.000webhostapp.com/ActualizarCitas.php?id=1+&mes=1+&dia=1+&diaSemana=1+&hora=1
 export default class Bajas2 extends Component {
   static contextType = NavigationContext;
   constructor(props) {
@@ -26,6 +33,7 @@ export default class Bajas2 extends Component {
       refreshing: true,
       open: false,
     };
+    const {navigation}= props;
   }
   //funcion que llena la lista con los datos, se declaro en una funcion para no  poner el codigo de conexion cada rato
   //asi solo se manda llmar a la funcion
@@ -39,12 +47,12 @@ export default class Bajas2 extends Component {
           refreshing: false,
         });
 
-        //console.log(_this.state.citas);
+        console.log(_this.state.citas);
       }
     };
     xhttp.open(
       'GET',
-      'https://danielguzman27.000webhostapp.com/codigo=215511141',
+      'https://danielguzman27.000webhostapp.com/VerCitas.php?codigo='+global.codigo,
       true,
     );
     xhttp.send();
@@ -70,7 +78,7 @@ export default class Bajas2 extends Component {
     };
     xhttp.open(
       'GET',
-      'https://dcc2.000webhostapp.com/BajasCitas2.php?id=' + id,
+      'https://danielguzman27.000webhostapp.com/BajaCitas2.php?id=' + id,
       true,
     );
     xhttp.send();
@@ -98,23 +106,36 @@ export default class Bajas2 extends Component {
     this.TraeDatos();
   };
   toggleOpen = () => {
-    this.setState({open: !this.state.open});
-    console.log("abre drawer");
+    this.setState({ open: !this.state.open });
   };
 
   drawerContent = (navigation) => {
+    let _this=this;
     return (
       <View style={styles.animatedBox}>
-        <Text>{global.respuesta}</Text>
-        <Button title="ir a Altas"  onPress={() => navigation.navigate('usuario')}></Button>
-        <TouchableOpacity onPress={this.toggleOpen}>
-          <Text>Close</Text>
+      <TouchableOpacity onPress={this.toggleOpen} style={styles.animatedBox}>
+       <Text>{global.cadena}</Text>
+        <TouchableOpacity onPress={()=>_this.props.navigation.navigate('User')} >
+              <Text>Formato</Text>
         </TouchableOpacity>
+        <Text>Close</Text>
+      </TouchableOpacity>
       </View>
     );
   };
+  static navigationOptions = {
+    title: "Home",
+    headerStyle: {
+      backgroundColor: "#03A9F4"
+    },
+    headerTintColor: "#fff",
+    headerTitleStyle: {
+      fontWeight: "bold"
+    }
+  };
   render() {
     const navigation = this.context;
+    const Stack = createStackNavigator();
     //accion que se ejecuta mietras carga los datos, pantalla fiusha con el texto de cargando datos
     if (this.state.refreshing) {
       return (
@@ -140,10 +161,10 @@ export default class Bajas2 extends Component {
           overlay={true}
           opacity={0.4}>
           <TouchableOpacity onPress={this.toggleOpen} style={styles.body}>
-            <Text>Open Drawer</Text>
+            <Text>Open</Text>
           </TouchableOpacity>
         </MenuDrawer>
-        <View>
+        <View >
           <FlatList
             // de donde se obtienen los datos, de el arreglo citas
             data={this.state.citas}
@@ -168,7 +189,7 @@ export default class Bajas2 extends Component {
                 <View style={styles.btn}>
                 <Button
                   style={styles.rowViewContainer1}
-                  title="borra"
+                  title="borrar"
                   //mandamos llamar a la funcion borra y le pasamos como parametro el id, que es unico en la tabla
                   onPress={() => this.borra(item.id)} />
                   </View>
@@ -197,6 +218,7 @@ const styles = StyleSheet.create({
     width:100,
     height:50,
     marginLeft:250,
+   
   },
   MainContainer: {
     marginTop: 10,
@@ -221,6 +243,20 @@ marginTop:4,
     backgroundColor: '#38C8EC',
     padding: 20,
   },
+  container: {
+    flex:1,
+    alignItems: 'center',
+    alignContent:'center',
+    flexDirection: 'row',
+    flexWrap:'wrap',
+    justifyContent:'center',
+},
+item: {
+  backgroundColor: '#f9c2ff',
+  padding: 20,
+  marginVertical: 8,
+  marginHorizontal: 16,
+},
 });
 /*
 Notas..
