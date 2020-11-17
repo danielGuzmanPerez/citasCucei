@@ -50,9 +50,8 @@ export default class User extends React.Component {
       <TouchableOpacity onPress={this.toggleOpen} style={styles.animatedBox}>
        <Text>{global.cadena}</Text>
        <TouchableOpacity onPress={()=>_this.props.navigation.navigate('Formato')} >
-          <Text>Bajas</Text>
-          
-      </TouchableOpacity>
+          <Text>Citas</Text>
+          </TouchableOpacity>
         <Text>Close</Text>
       </TouchableOpacity>
     );
@@ -104,14 +103,12 @@ export default class User extends React.Component {
         overlay={true}
         opacity={0.4}
       >
-        
-        
-      </MenuDrawer>
-
-      <View style={styles.container}>
-      <View>
-        <Button title="Open" onPress={this.toggleOpen} style={styles.body}/>
+     </MenuDrawer>
+     <View style={styles.botonDrawer}>
+            <Button title="Open" color= "#999999"onPress={this.toggleOpen} style={styles.body}/>
         </View>
+      <View style={styles.container}>
+      
         <View style={styles.calendario}>
         <CalendarPicker
           onDateChange={this.onDateChange}
@@ -187,10 +184,11 @@ const styles = StyleSheet.create({
   },
   botoncita:{
     marginTop: 50,
+    alignItems:"center",
    
   },
   botonDrawer:{
-    
+    justifyContent:"flex-start",
   },
   calendario:{
     marginTop:100,

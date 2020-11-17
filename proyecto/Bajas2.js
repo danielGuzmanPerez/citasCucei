@@ -18,6 +18,7 @@ global.cadena;
 global.codigo;
 global.nombre;
 global.carrera;
+global.id;
 
 //https://danielguzman27.000webhostapp.com/ActualizarCitas.php?id=1+&mes=1+&dia=1+&diaSemana=1+&hora=1
 export default class Bajas2 extends Component {
@@ -47,7 +48,7 @@ export default class Bajas2 extends Component {
           refreshing: false,
         });
 
-        console.log(_this.state.citas);
+       // console.log(_this.state.citas);
       }
     };
     xhttp.open(
@@ -60,13 +61,11 @@ export default class Bajas2 extends Component {
   //funcion que manda llamar a borracitas.php el cual le pasamos como parametro id que es unico no olviden que deben cambiar la ruta
   // asu servidor..
   borra(id) {
-    console.log('borra');
-    console.log(id);
+   
     let _this = this;
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
-        console.log(xhttp.responseText);
         if (xhttp.responseText === '1') {
           Alert.alert('cita Borrada');
           _this.setState({citas: []});
@@ -82,6 +81,11 @@ export default class Bajas2 extends Component {
       true,
     );
     xhttp.send();
+  }
+  editar(id){
+      let _this = this;
+      global.id=id;
+      _this.props.navigation.navigate('Editar')
   }
   //formato de la linea que separa datos entre un registro y otr
   ListViewItemSeparator = () => {
@@ -115,8 +119,9 @@ export default class Bajas2 extends Component {
       <View style={styles.animatedBox}>
       <TouchableOpacity onPress={this.toggleOpen} style={styles.animatedBox}>
        <Text>{global.cadena}</Text>
+
         <TouchableOpacity onPress={()=>_this.props.navigation.navigate('User')} >
-              <Text>Formato</Text>
+              <Text>Crear Cita</Text>
         </TouchableOpacity>
         <Text>Close</Text>
       </TouchableOpacity>
@@ -152,7 +157,7 @@ export default class Bajas2 extends Component {
       //Vista de la lista, se uso el componente Flatlist
       <View>
        
-        <Text style={styles.texto}> Bajas2 </Text>
+        <Text style={styles.texto}> Bajas</Text>
         <MenuDrawer
           open={this.state.open}
           drawerContent={this.drawerContent(navigation)}
@@ -187,11 +192,17 @@ export default class Bajas2 extends Component {
                   {item.Mes}  {item.Dia}  {item.Hora}
                 </Text>
                 <View style={styles.btn}>
-                <Button
-                  style={styles.rowViewContainer1}
-                  title="borrar"
-                  //mandamos llamar a la funcion borra y le pasamos como parametro el id, que es unico en la tabla
-                  onPress={() => this.borra(item.id)} />
+                    <Button
+                        style={styles.rowViewContainer1}
+                        title="Editar"
+                        //mandamos llamar a la funcion borra y le pasamos como parametro el id, que es unico en la tabla
+                        onPress={() => this.editar(item.id)} />
+                    <Button
+                        style={styles.rowViewContainer1}
+                        color="#BB1C0C"
+                        title="borrar"
+                        //mandamos llamar a la funcion borra y le pasamos como parametro el id, que es unico en la tabla
+                        onPress={() => this.borra(item.id)} />
                   </View>
               </View>
             )}
@@ -217,7 +228,12 @@ const styles = StyleSheet.create({
   btn:{
     width:100,
     height:50,
-    marginLeft:250,
+    marginLeft:210,
+    marginBottom:5,
+    flexDirection:"row",
+    backgroundColor: '#f9c2ff'
+   
+    
    
   },
   MainContainer: {
@@ -227,14 +243,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
     padding: 10,
     marginTop:10,
+    
   },
   rowViewContainer1: {
     marginLeft: 200,
   },
   body: {
     fontSize:15,
-marginLeft:4,
-marginTop:4,
+    marginLeft:4,
+    marginTop:4,
 
     
   },
