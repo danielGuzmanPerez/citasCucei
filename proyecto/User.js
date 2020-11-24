@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
    
   },
   botonDrawer:{
-    justifyContent:"flex-start",
+    alignItems
   },
   calendario:{
     marginTop:100,

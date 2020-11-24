@@ -195,6 +195,7 @@ export default class Bajas2 extends Component {
                     <Button
                         style={styles.rowViewContainer1}
                         title="Editar"
+                        color='#999999'
                         //mandamos llamar a la funcion borra y le pasamos como parametro el id, que es unico en la tabla
                         onPress={() => this.editar(item.id)} />
                     <Button

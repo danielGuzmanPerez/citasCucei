@@ -13,7 +13,7 @@ export default function Navigation(){
             <Stack.Screen name="Login" component={Login} options={{title: 'CITAS'}}/>
             <Stack.Screen name="User" component={User} options={{title: 'BIENVENIDO',headerMode: 'none', headerShown: false }} />
             <Stack.Screen  name="Formato" component={Formato} options={{headerMode: 'none', headerShown: false}}/>
-            <Stack.Screen  name="Editar" component={Editar} options={{headerMode: 'none', headerShown: false}}/>
+            <Stack.Screen  name="Editar" component={Editar} options={{title:'Editar'}}/>
         </Stack.Navigator>
     );
 }

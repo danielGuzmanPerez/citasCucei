@@ -97,9 +97,8 @@ export default class Editar extends React.Component {
       xhttp.open("GET","https://danielguzman27.000webhostapp.com/ActualizarCitas.php?id="+global.id+"&mes="+datosSeparados[1]+"&dia="+datosSeparados[2]+"&diaSemana="+datosSeparados[0]+"&hora="+this.state.Hora,true);
       xhttp.send();
     }
-    return (
-        <View style={styles.container}>
-            <MenuDrawer
+    /*
+        <MenuDrawer
                 open={this.state.open} 
                 drawerContent={this.drawerContent()}
                 drawerPercentage={45}
@@ -111,6 +110,9 @@ export default class Editar extends React.Component {
                 </View>
             </MenuDrawer>
             <Text style={styles.texto}>Editar cita</Text>
+    */
+    return (
+        <View style={styles.container}>
             <View style={styles.calendario}>
             <CalendarPicker
             onDateChange={this.onDateChange}
