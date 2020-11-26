@@ -1,15 +1,16 @@
 var formulario = document.getElementById('formulario');
 formulario.addEventListener('submit', function(e){
     e.preventDefault();
-    console.log("click");
     var datos = new FormData(formulario);
-    console.log(datos.get('usuario'));
-    fetch('https://danielguzman27.000webhostapp.com/altaAdministrador.php', {
-        method: 'POST',
-        body:datos
-    })
-    .then(Response => Response())
-    .then(data => {
-        console.log(data);
-    } )
+    const xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            if(this.responseText=="1"){
+                usuario=datos.get('usuario');
+                window.location.href="home.php?usuario="+usuario;
+            }
+        }
+    };
+    xhttp.open("GET", "loginAdministrador.php?user="+datos.get('usuario')+"&password="+datos.get('pass'), true);
+    xhttp.send();
 })
