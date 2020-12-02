@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
    
   },
   botonDrawer:{
-    alignItems
+    
   },
   calendario:{
     marginTop:100,

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "256393275431",
+    "firebase_url": "https://citas-cucei-7758e.firebaseio.com",
+    "project_id": "citas-cucei-7758e",
+    "storage_bucket": "citas-cucei-7758e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:256393275431:android:5d44c80a2fa20b554f4602",
+        "android_client_info": {
+          "package_name": "com.citasudg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "256393275431-ig6ntm71netnuk2mlfka3e1e0ptp5s1s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtlZ4ZFjiTU80VbRNDyx4xOp0sgZcpevY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "256393275431-ig6ntm71netnuk2mlfka3e1e0ptp5s1s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
